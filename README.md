@@ -62,7 +62,7 @@ pytest --cov=.
 ## Continuous Integration
 
 This project uses GitHub Actions for continuous integration. The workflow:
-- Runs on Python 3.8, 3.9, and 3.10
+- Runs on Python 3.12
 - Executes all tests
 - Generates test coverage reports
 
