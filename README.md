@@ -2,6 +2,8 @@
 
 A Python script to convert Google Keep JSON files to Evernote ENEX format for importing into Apple Notes.
 
+![Python Tests](https://github.com/username/keep-to-notes/actions/workflows/python-tests.yml/badge.svg)
+
 ## Features
 
 - Converts Google Keep JSON export files to Evernote ENEX format
@@ -9,6 +11,10 @@ A Python script to convert Google Keep JSON files to Evernote ENEX format for im
 - Maintains creation and modification timestamps
 - Handles titles and content properly
 - Supports batch processing of multiple files
+- Preserves checklist items as native Apple Notes checkboxes
+- Maintains note colors and styling
+- Extracts hashtags as tags
+- Supports splitting large exports into multiple files
 
 ## Requirements
 
@@ -31,7 +37,12 @@ pip install -r requirements.txt
 python keep_to_notes.py --input-dir /path/to/json/files --output-dir /path/to/output
 ```
 
-3. Import the generated .enex files into Apple Notes:
+3. For large collections, you can split the output into multiple files:
+```bash
+python keep_to_notes.py --input-dir /path/to/json/files --output-dir /path/to/output --split
+```
+
+4. Import the generated .enex files into Apple Notes:
    - Open Apple Notes
    - File > Import Notes...
    - Select the generated .enex file
@@ -43,6 +54,18 @@ Run the tests using pytest:
 pytest
 ```
 
+For test coverage report:
+```bash
+pytest --cov=.
+```
+
+## Continuous Integration
+
+This project uses GitHub Actions for continuous integration. The workflow:
+- Runs on Python 3.8, 3.9, and 3.10
+- Executes all tests
+- Generates test coverage reports
+
 ## Notes Format
 
 ### Google Keep JSON Format
@@ -52,7 +75,13 @@ pytest
     "textContent": "Plain text content",
     "textContentHtml": "HTML formatted content",
     "createdTimestampUsec": 1234567890000000,
-    "userEditedTimestampUsec": 1234567890000000
+    "userEditedTimestampUsec": 1234567890000000,
+    "listContent": [
+        {
+            "text": "Task item",
+            "isChecked": false
+        }
+    ]
 }
 ```
 
@@ -69,6 +98,9 @@ pytest
         </content>
         <created>YYYYMMDDTHHmmssZ</created>
         <updated>YYYYMMDDTHHmmssZ</updated>
+        <tags>
+            <tag>tag1</tag>
+        </tags>
     </note>
 </en-export>
 ``` 
