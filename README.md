@@ -38,18 +38,89 @@ This tool is not:
 - Python 3.8+
 - Required packages listed in `requirements.txt`
 
-## 📥 Installation
+## 📥 Complete Installation Guide (for Beginners)
 
-1. Clone this repository:
+### Step 1: Install Python
+
+If you don't have Python installed:
+
+#### Windows:
+1. Download the installer from [python.org](https://www.python.org/downloads/)
+2. Run the installer, making sure to check "Add Python to PATH"
+3. Verify installation by opening Command Prompt and typing:
+   ```
+   python --version
+   ```
+
+#### macOS:
+1. Install [Homebrew](https://brew.sh/) if you don't have it:
+   ```bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
+2. Install Python:
+   ```bash
+   brew install python
+   ```
+3. Verify installation:
+   ```bash
+   python3 --version
+   ```
+
+#### Linux:
 ```bash
-git clone https://github.com/jeffredodd/googlekeep-to-applenotes.git
-cd googlekeep-to-applenotes
+sudo apt update
+sudo apt install python3 python3-pip python3-venv
+python3 --version
 ```
 
-2. Install dependencies:
+### Step 2: Clone the Repository
+
+1. Install Git if you don't have it:
+   - Windows: Download from [git-scm.com](https://git-scm.com/download/win)
+   - macOS: `brew install git`
+   - Linux: `sudo apt install git`
+
+2. Clone the repository:
+   ```bash
+   git clone https://github.com/jeffredodd/googlekeep-to-applenotes.git
+   cd googlekeep-to-applenotes
+   ```
+
+### Step 3: Set Up a Virtual Environment
+
+A virtual environment keeps your project dependencies isolated from other Python projects.
+
+#### Windows:
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+#### macOS/Linux:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+You'll know the virtual environment is active when you see `(venv)` at the beginning of your command prompt.
+
+### Step 4: Install Dependencies
+
+With the virtual environment activated:
+
 ```bash
 pip install -r requirements.txt
 ```
+
+### Step 5: Verify Installation
+
+Run a simple test to make sure everything is working:
+
+```bash
+python -m pytest
+```
+
+If the tests pass, you're all set!
 
 ## 📋 Usage
 
@@ -142,4 +213,26 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## 🙏 Acknowledgements
 
 - Thanks to all contributors who have helped improve this tool
-- Inspired by the need for a better migration path between note-taking platforms 
+- Inspired by the need for a better migration path between note-taking platforms
+
+## ❓ Troubleshooting
+
+### Common Issues
+
+#### "Command not found: python"
+- Make sure Python is installed and added to your PATH
+- On macOS/Linux, try using `python3` instead of `python`
+
+#### "No module named 'xyz'"
+- Make sure you've activated your virtual environment
+- Try reinstalling dependencies: `pip install -r requirements.txt`
+
+#### "Permission denied" when running the script
+- Make the script executable: `chmod +x keep_to_notes.py`
+
+#### Virtual Environment Issues
+- If you're having trouble with the virtual environment, you can also install dependencies globally:
+  ```bash
+  pip install -r requirements.txt
+  ```
+  (Note: This is not recommended for development work, but can be a quick solution for just running the tool) 
